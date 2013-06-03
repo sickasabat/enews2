@@ -1,0 +1,83 @@
+* {margin:0px;padding:0px}
+
+.whiteBorder{border:2px solid white}
+/* Z-index of #mask must lower than #boxes .window */  
+
+#mask {  
+  position:absolute;  
+  top:0px;
+  left:0px;
+  z-index:9000;  
+  background-color:#000;  
+  display:none;  
+  }  
+
+  #boxes .window {  
+    position:absolute;  
+    display:none;  
+    z-index:9999; 
+    padding:20px;  
+ }  
+
+
+ /* Customize your modal window here, you can add background image too */  
+ #boxes #dialog {  
+   background-color:#ffffff;
+   margin: 0;
+   padding: 0;
+   border:1px solid red;
+ }  
+
+
+ .dashed {
+   border:1px dashed gray;
+ }
+
+ #menubar{
+   color:#004488;
+   text-align:left;
+   position:fixed;
+   top:0px;
+   width:100%;
+   margin:0 auto 50px auto;
+   padding:0;
+ }
+
+ #menu_content{
+   height:80px;
+   width:700px;
+   background-color:#4488cc;
+   color:#004488;
+   border:1px solid #4488cc;
+   margin:0 auto;
+   padding:10px 50px 0 50px;
+   display:none;
+   border-radius:0 0 15px 0;
+}
+
+ .menu {
+   border:8px solid #2266aa;
+   position:fixed;
+   top:30%;right:0;
+   padding:5px;
+   background-color:#ffffff;
+   color:#004488;
+   display:none;
+   width:300px;
+   border-radius: 15px;
+}
+
+#menu_title{
+  width:50px;
+  background-color:#4488cc;
+  padding:0px 5px 0px 5px;
+  border:0;
+  border-radius:0 0 10px 10px;
+  cursor:pointer;
+}
+
+.menulink{
+  color:#004488;
+  text-decoration:none;
+  cursor:pointer;
+}

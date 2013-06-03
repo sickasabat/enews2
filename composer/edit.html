@@ -1,0 +1,388 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+  <head>
+    <title>
+      E-letter
+    </title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="jscolor/jscolor.js"></script>
+<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="scripts.js"></script>
+<link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="jqueryFileTree/jqueryFileTree.js"></script>
+    <link rel="stylesheet" href="jqueryFileTree/jqueryFileTree.css">
+
+  </head>
+  <body style="background-color:#77bbff;margin:0px auto">
+    <div id="menubar">
+      <div id="menu_content">
+        <div style="float:left;width:100px;">
+          <a href="../composer/" class="menulink"><img border="0" src="images/newicon.png"><br>New</a>
+        </div>
+        <div style="float:left;width:100px;">
+          <a id="edit"  class="menulink"><img border="0"  src="images/editicon.png"><br>Edit</a>
+        </div>
+        <div style="float:left;width:100px">
+          <a id="preview"  class="menulink"><img border="0" src="images/previewicon.png" alt="" /><br>Preview</a>
+        </div>
+        <div style="float:left;width:100px;">
+            <a  id="save" class="menulink"><img border="0" src="images/saveicon.png"><br>Save</a>
+        </div>
+        <div style="float:left;width:100px">
+          <a  id="set" class="menulink"><img border="0" src="images/settingsicon.png"><br>Settings</a>
+        </div>
+        <div style="float:left;width:100px">
+          <a  id="img" class="menulink"><img border="0" src="images/imgicon.png"><br>Image<br>Manager</a>
+        </div>
+      </div>
+        <!-- This div provides the editable file list and allows opening or deleting of those files /-->
+        <div id="edit_list" class="menu">
+
+
+          <img border="0" src="images/close_sm.png" style="position:relative;left:288px;top:-8px" class="close">
+          <div id="file_list" style="max-height:250px;overflow:auto"></div>
+          <div>
+
+            <input id="efilename" type="text" size="30">
+            <br>
+            <button class="read" style="float:left">Open</button>            
+            <button style="float:left" class="close">Cancel</button>
+            <button style="float:right" onclick="javascript:if(jQuery('#efilename').val()){return confirm_delete(jQuery('#efilename').val());}else{alert('No file selected');}">Delete</button>
+          </div>
+        </div>
+        <!-- This div provides the saving file list and allows saving as an old file by selection or new file by text input /-->
+        <div id="save_list" class="menu">
+          <img border="0" src="images/close_sm.png" style="position:relative;left:288px;top:-8px" class="close">
+          <div id="file_list2" style="max-height:250px;overflow:auto"></div>
+          <div>
+            <input id="filename" type="text" size="30">
+            <br>
+            <button class="write" style="float:left">Save</button>
+            <button style="float:left" class="close">Cancel</button>
+          </div>
+        </div>
+        <!-- This div provides the image manager and allows uploading and deleting of images -->
+        <div id="images" class="menu" >
+          <img border="0" src="images/close_sm.png" style="position:relative;left:288px;top:-8px" class="close">
+          <div id="img_list" style="max-height:250px;overflow:auto"></div>
+          <div>
+            <br>
+            <input id="img_upload" type="text" size="30">
+            <br>
+            <button style="float:left">Upload</button>
+            <button style="float:left" class="close">Cancel</button>
+            <button style="float:right" onclick="javascript:if(jQuery('#img_upload').val()){return confirm_delete(jQuery('#img_upload').val());}else{alert('No file selected');}">Delete</button>
+          </div>
+        </div>
+        <!-- This div provides the settings window for the default font/colours of the newsletter /-->
+        <div id="settings" class="menu">
+          <img border="0" src="images/close_sm.png" style="position:relative;left:288px;top:-8px" class="close">
+
+          Set Font:<select style="width:90%" id="font">
+                    <option id="arial" value="arial" select="selected" style="font-family:arial">Arial</option>
+                    <option id="BookAntiqua" value="Book Antiqua" style="font-family:'Book Antiqua'">Book Antiqua</option>
+                    <option id="georgia" value="Georgia" style="font-family:Georgia">Georgia</option>
+                    <option id="arialBlack" value="Arial Black" style="font-family:'Arial Black'">Arial Black</option>
+                    <option id="comicSans" value="Comic Sans" style="font-family:'Comic Sans'">Comic Sans</option>
+                    <option id="CourierNew" value="Courier New" style="font-family:'Courier New'">Courier New</option>
+                    <option id="Impact" value="Impact" style="font-family:Impact">Impact</option>
+                    <option id="LucidaConsole" value="Lucida Console" style="font-family:'Lucida Console'">Lucida Console</option>
+                    <option id="LucidaSansUnicode" value="Lucida Sans Unicode" style="font-family:'Lucida Sans Unicode'">Lucida Sans Unicode</option>  
+                    <option id="Tahoma" value="Tahoma" style="font-family:Tahoma">Tahoma</option>
+                    <option id="TimesNewRoman" value="Times New Roman" style="font-family:'Times New Roman'">Times New Roman</option>
+                    <option id="TrebuchetMS" value="Trebuchet MS" style="font-family:'Trebuchet MS'">Trebuchet MS</option>
+                    <option id="Verdana" value="Verdana" style="font-family:Verdana">Verdana</option>
+                  </select>
+          <p>
+          <br>
+          Font-family:<input id="family" type="text" disabled="true" style="width:90%" value="Helvetica, Sans Serif">
+          </select>
+          <p>
+          <br>
+          Sample Text:
+          <p id="eg" style="padding:5px;border:1px black solid;color:black;text-align:center">
+          The quick brown fox jumps over the lazy dog
+          </p>
+          <p>
+          <br>
+          Set Font Color:
+          <br>
+            <input style="width:90%" class="color" id="selecttextcolor" value="000000">
+          <p>
+          Set Background-color:
+          <br>
+            <input style="width:90%" class="color" id="selectbackgroundcolor">
+            <p>
+            <br>
+            <button id="colorchange" style="float:left">OK</button>
+          <button style="float:right" class="close">Cancel</button>
+        </div>
+        <div style="width:800px;margin:0 auto;">
+        <div id="menu_title" class="menulink">Menu</div>
+        </div>
+        </div>
+    <h1 style="width:500px;color:#004488;padding-top:50px;margin:0 auto;text-align:center">E-letter Composer</h1>
+        
+    <div id="s1">
+<TABLE id="main"  style="MARGIN: 0px auto; WIDTH: 800px; BACKGROUND: #ffffff; cellpadding: 0">
+      <tbody>
+        <TR>
+          <TD style="WIDTH: 132px">
+          </TD>
+          <TD style="WIDTH: 132px">
+          </TD>
+          <TD style="WIDTH: 132px">
+          </TD>
+          <TD style="WIDTH: 132px">
+          </TD>
+          <TD style="WIDTH: 132px">
+          </TD>
+          <TD style="WIDTH: 132px">
+          </TD>
+        </TR>
+        <TR style="TEXT-ALIGN: center">
+          <TD href="#dialog" name="modal" class="dashed" id="cell0"  colSpan=6>
+            <P align=left>
+            <SPAN style="FONT-FAMILY: 'Garamond','serif'">
+              <SPAN>
+                <FONT size=4>
+                  <FONT face="Times New Roman">
+                    Hello [FNVar],
+                  </FONT>
+                </FONT>
+              </SPAN>
+              </P>
+              <P style="MARGIN: 0in 0in 0pt" align=left>
+              <SPAN>
+                <FONT size=4 face="Times New Roman">
+                  &nbsp;
+                </FONT>
+              </SPAN>
+              </P>
+              <P style="MARGIN: 0in 0in 0pt" align=left>
+              <SPAN>
+                <FONT size=4>
+                  <FONT face="Times New Roman">
+                    Thank you for retaining us to lead you through the legal process of your DUI case.
+                    <SPAN>
+                      &nbsp; 
+                    </SPAN>
+                    It is important that we have clear lines of communication.
+                    <SPAN>
+                      &nbsp; 
+                    </SPAN>
+                    We encourage you to call us at any time with concerns or questions because we are here to help you.
+                  </FONT>
+                </FONT>
+              </SPAN>
+              </P>
+              <P style="MARGIN: 0in 0in 0pt" align=left>
+              <SPAN>
+                <FONT size=4>
+                  <FONT face="Times New Roman">
+                    <SPAN>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                    </SPAN>
+                    <SPAN>
+                      &nbsp;
+                    </SPAN>
+                  </FONT>
+                </FONT>
+              </SPAN>
+              </P>
+              <P style="MARGIN: 0in 0in 0pt" align=left>
+              <SPAN>
+                <FONT size=4>
+                  <FONT face="Times New Roman">
+                    For many people, the most feared part of being charged with DUI highlights a basic fear we all have -&nbsp;not knowing what will happen to us.
+                    <SPAN>
+                      &nbsp; 
+                    </SPAN>
+                    Neither of us wants an unwelcome surprise!
+                    <SPAN>
+                      &nbsp; 
+                    </SPAN>
+                    Your questions help us to get to know more about you, so that we can better defend you.
+                    <SPAN>
+                      &nbsp; 
+                    </SPAN>
+                    While it is our business to know both legal and courtroom procedures, we understand that much will be new to you.
+                    <SPAN>
+                      &nbsp; 
+                    </SPAN>
+                    Inevitably, you will wonder what will happen, and we certainly expect that you will have questions.
+                  </FONT>
+                </FONT>
+              </SPAN>
+              </P>
+              <P style="MARGIN: 0in 0in 0pt" align=left>
+              <SPAN>
+                <FONT size=4 face="Times New Roman">
+                  &nbsp;
+                </FONT>
+              </SPAN>
+              </P>
+              <P style="MARGIN: 0in 0in 0pt" align=left>
+              <SPAN>
+                <FONT size=4>
+                  <FONT face="Times New Roman">
+                    We take great pride in our customer service and do all we can to be as responsive to your inquiries as possible.
+                    <SPAN>
+                      &nbsp; 
+                    </SPAN>
+                    Our experience shows that we can make a real difference in your life by addressing your concerns promptly.
+                    <SPAN>
+                      &nbsp; 
+                    </SPAN>
+                    What might otherwise be a negative situation, can be a positive experience and more importantly - a positive outcome for your case.
+                    <SPAN>
+                      &nbsp; 
+                    </SPAN>
+                    We believe that this is how we distinguish ourselves from others.
+                    <SPAN>
+                      &nbsp; 
+                    </SPAN>
+                  </FONT>
+                </FONT>
+              </SPAN>
+              </P>
+              <P style="MARGIN: 0in 0in 0pt" align=left>
+              <SPAN>
+                <FONT size=4 face="Times New Roman">
+                  &nbsp;
+                </FONT>
+              </SPAN>
+              </P>
+              <P style="MARGIN: 0in 0in 0pt" align=left>
+              <SPAN>
+                <FONT size=4>
+                  <FONT face="Times New Roman">
+                    We love to educate our clients.
+                    <SPAN>
+                      &nbsp; 
+                    </SPAN>
+                    Chances are, when you have a question, others before you have raised similar concerns.
+                    <SPAN>
+                      &nbsp; 
+                    </SPAN>
+                    We enjoy assisting you so that you can be confident that you are in capable hands with Saile &amp; Saile LLP.
+                    <SPAN>
+                      &nbsp; 
+                    </SPAN>
+                    Be sure to let us know how we are doing.
+                    <SPAN>
+                      &nbsp; 
+                    </SPAN>
+                    Call us anytime at 215-860-5800.
+                  </FONT>
+                </FONT>
+              </SPAN>
+              </P>
+              <P style="TEXT-ALIGN: center; MARGIN: 0in 0in 0pt" align=center>
+            </SPAN>
+            <FONT face="Times New Roman">
+              &nbsp;
+            </FONT>
+            </P>
+            <P style="MARGIN: 0in 0in 0pt" align=left>
+            <FONT size=4>
+            </FONT>
+            &nbsp;
+            </P>
+            <P style="MARGIN: 0in 0in 0pt" align=center>
+            <IMG border="0" src="http://www.bom-portal.com/portal2/saile/uploads/sub-header.jpg">
+            </P>
+            <P style="MARGIN: 0in 0in 0pt" align=center>
+            <SPAN style="FONT-FAMILY: 'Garamond', Cambria, Times New Roman, Times, serif; COLOR: #000000; FONT-SIZE: 11pt">
+              <FONT face="Times New Roman">
+                <FONT size=4>
+                  403 Executive Drive, Langhorne, PA 19047
+                  <BR>
+                  Phone: (215) 860-5800 Fax: (215) 860-7766
+                  <BR>
+                  <SPAN style="FONT-FAMILY: 'Times New Roman','serif'; FONT-SIZE: 12pt">
+                    <A href="http://www.buckscountyduilawyers.com/">
+                      <SPAN style="FONT-FAMILY: 'Times New Roman','serif'; FONT-SIZE: 12pt">
+                        <FONT color=#0000ff>
+                          www.buckscountyduilawyers.com
+                        </FONT>
+                      </SPAN>
+                    </A>
+                  </SPAN>
+                </FONT>
+              </FONT>
+            </SPAN>
+            &nbsp;
+            </P>
+            <P style="MARGIN: 0in 0in 0pt" align=center>
+            &nbsp;
+            </P>
+          </TD>
+        </TR>
+      </TBODY>
+    </TABLE>
+</div>
+  
+      <div style="margin:0 auto;text-align:center">
+        <a  id="addrow"><img border="0" src="images/add_sm.png"></a>
+      </div>
+      <div id="add_row" class="menu">
+          <img border="0" class="close" src="images/close_sm.png" style="position:relative;left:288px;top:-8px">
+        <div style="margin:2px">
+          <img class="add5050" src="images/5050.PNG">
+        </div>
+        <div style="margin:2px">
+          <img class="add2575" src="images/2575.PNG">
+        </div>
+        <div style="margin:2px">
+          <img class="add7525" src="images/7525.PNG">
+        </div>
+        <div style="margin:2px">
+          <img class="add1000" src="images/1000.PNG">
+        </div>
+        <div style="margin:2px">
+          <img class="add3333" src="images/3333.png"> 
+        </div>
+        <div>
+          <button id="addrowbutton" class="unselected" style="float:left">Add Row</button>
+          <button style="float:right" class="close">Cancel</button>
+        </div>
+        <br>
+      </div>
+
+
+    <div id="boxes">  
+
+      <div id="dialog" class="window">
+        <form action="">
+          <textarea class="textbox" id="text2" style="width:600px;height:300px" rows="" cols=""></textarea> 
+        </form>
+        <br><button class="save">OK</button>
+        <button class="close">Cancel</button>
+        <!-- #customize your modal window here -->  
+
+      </div>  
+
+      <!-- Do not remove div#mask, because you'll need it to fill the whole screen -->    
+      <div id="mask"></div>  
+    </div>
+
+    <div>
+      <form id="saveform" method="post" action="save.php">
+        <input type="hidden" id="file" name="file" value="temp1.html">
+        <input type="hidden" id="pagedata" name="data">
+
+      </form>
+
+      <form id="editform" method="post" action="test.php">
+        <input type="hidden" id="efile" name="efile" value="temp1.html">
+      </form>
+
+      <form id="previewform" method="">
+        <input type="hidden" id="prevDataID" name="prevDataName">
+      </form>
+
+  </body>
+</html>
