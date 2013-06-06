@@ -1,4 +1,8 @@
 jQuery.noConflict();
+var path = window.location.pathname;
+var firstslash = path.indexOf("/",1);
+var secondslash = path.indexOf("/", (firstslash+1));
+path = path.slice(firstslash+1,secondslash+1);
 
 jQuery.fn.center = function () {
   this.css("position","absolute");
@@ -10,7 +14,7 @@ jQuery.fn.center = function () {
 function load_imglist(){
   jQuery('#img_list').fileTree({
 root: '../uploads/',
-script: 'jqueryFileTree.php',
+script: '../../composer/jqueryFileTree.php',
 expandSpeed: 1000,
 collapseSpeed: 1000,
 multiFolder: false
@@ -176,6 +180,7 @@ jQuery(document).ready(function() {
 
   jQuery('.write').click(function(e){
     e.preventDefault();
+    //This section checks for the .html extension and adds it if it's missing.
     if(jQuery('#filename').val().indexOf('.html') >= 0){
       jQuery('#file').val(jQuery('#filename').val());
     }
@@ -187,17 +192,11 @@ jQuery(document).ready(function() {
     }
     jQuery('.remove').remove();	
     var contents = jQuery('#s1').html();
-    //This section checks for the .html extension and adds it if it's missing.
-    var filename = jQuery('#filename').val();
-  if(filename.toLowerCase().indexOf(".html") < 0){
-    filename = filename + ".html";
-  }
-  jQuery('#filename').val(filename);
     if(jQuery('.temponline').length != 0){
-      contents = contents.replace(/class="temponline" href=""/i, 'class="temponline" href="'+jQuery('#filename').val()+'"');
+      contents = contents.replace(/class="temponline" href=""/i, 'class="temponline" href="'+jQuery('#file').val()+'"');
     }
     else{
-contents = contents.replace(/<TBODY>/i,"<tbody><tr class=\"online\"><td colspan=\"6\" style=\"font-size:14px\"><p align=center>If this is not displaying correctly view it online <a href='"+jQuery('#filename').val()+"'>here.</a></td></tr>");
+contents = contents.replace(/<TBODY>/i,"<tbody><tr class=\"online\"><td colspan=\"6\" style=\"font-size:14px\"><p align=center>If this is not displaying correctly view it online <a href='"+jQuery('#file').val()+"'>here.</a></td></tr>");
     }
     //Insert [eTrack] (uncomment this for active clients)
     //contents = contents.replace(/<\/tbody>/i,"[eTrack]\n</tbody>");
@@ -217,8 +216,8 @@ contents = contents.replace(/<TBODY>/i,"<tbody><tr class=\"online\"><td colspan=
     jQuery('input#pagedata').val(pagedata);
     jQuery('#saveform').submit();
     jQuery('#file_list2').fileTree({
-        root: '../',
-        script: 'jqueryFileTree.php',
+        root: '../'+path,
+        script: '../../composer/jqueryFileTree.php',
         expandSpeed: 1000,
         collapseSpeed: 1000,
         multiFolder: false
@@ -258,7 +257,7 @@ contents = contents.replace(/<TBODY>/i,"<tbody><tr class=\"online\"><td colspan=
     }
 
     jQuery('input#prevDataID').val(pagedata);
-    jQuery.post("preview.php",jQuery('#previewform').serialize(),
+    jQuery.post("../../composer/preview.php",jQuery('#previewform').serialize(),
         function(data) {
           var win = window.open('', 'childWindow');
           win.document.open();
@@ -297,8 +296,8 @@ contents = contents.replace(/<TBODY>/i,"<tbody><tr class=\"online\"><td colspan=
     jQuery('#edit_list').toggle();
     jQuery('#file_list').fileTree(
       {
-        root: '../',
-        script: 'jqueryFileTree.php',
+        root: '../'+path,
+        script: '../../composer/jqueryFileTree.php',
         expandSpeed: 1000,
         collapseSpeed: 1000,
         multiFolder: false
@@ -312,8 +311,8 @@ contents = contents.replace(/<TBODY>/i,"<tbody><tr class=\"online\"><td colspan=
     jQuery('.menu:not(#save_list)').hide();
     jQuery('#save_list').toggle();
     jQuery('#file_list2').fileTree({
-      root: '../',
-      script: 'jqueryFileTree.php',
+        root: '../'+path,
+      script: '../../composer/jqueryFileTree.php',
       expandSpeed: 1000,
       collapseSpeed: 1000,
       multiFolder: false
@@ -417,7 +416,7 @@ function confirm_delete(filename){
     var result = "odd";
     jQuery.ajax({
       type: 'post',
-      url: 'deletefile.php',
+      url: '../../composer/deletefile.php',
       data: {name: filename},
       success: function(msg){
         result = msg;
@@ -425,13 +424,12 @@ function confirm_delete(filename){
     });
 // jQuery('#files').load('filelist.php');
 jQuery('#file_list').fileTree({
-        root: '../',
-        script: 'jqueryFileTree.php',
+        root: '../'+path,
+        script: '../../composer/jqueryFileTree.php',
         expandSpeed: 1000,
         collapseSpeed: 1000,
         multiFolder: false
     }, function(file) {
-    //alert(file);
     file = file.substring(3);
     jQuery('#efilename').val(file);
     });

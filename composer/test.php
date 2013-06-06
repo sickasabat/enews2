@@ -1,5 +1,6 @@
 <?php
-$filename = "../" . $_POST['efile'];
+$path = $_POST['path'];
+$filename = "../".$path."composer/".$_POST['efile'];
 $filep = fopen($filename, 'r');
 $contents = fread($filep, filesize($filename));
 fclose($filep);
@@ -19,41 +20,41 @@ $docname = preg_replace("/ class=\"gmail\"/i","",$docname);
 //Add in the necessary scripts
 $contents = preg_replace('/<\/title>/',"</title>
   <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />
-<script type=\"text/javascript\" src=\"jquery-1.4.2.min.js\"></script>
-<script type=\"text/javascript\" src=\"jscolor/jscolor.js\"></script>
-<script type=\"text/javascript\" src=\"ckeditor/ckeditor.js\"></script>
+<script type=\"text/javascript\" src=\"../../composer/jquery-1.4.2.min.js\"></script>
+<script type=\"text/javascript\" src=\"../../composer/jscolor/jscolor.js\"></script>
+<script type=\"text/javascript\" src=\"../../composer/ckeditor/ckeditor.js\"></script>
 <script type=\"text/javascript\" src=\"scripts.js\"></script>
-<link rel=\"stylesheet\" href=\"styles.css\">
-    <script type=\"text/javascript\" src=\"jqueryFileTree/jqueryFileTree.js\"></script>
-    <link rel=\"stylesheet\" href=\"jqueryFileTree/jqueryFileTree.css\">\n",$contents);
+<link rel=\"stylesheet\" href=\"../../composer/styles.css\">
+    <script type=\"text/javascript\" src=\"../../composer/jqueryFileTree/jqueryFileTree.js\"></script>
+    <link rel=\"stylesheet\" href=\"../../composer/jqueryFileTree/jqueryFileTree.css\">\n",$contents);
 //Add the body style
 $contents = preg_replace("/<body.*>/i","<body style=\"background-color:#77bbff;margin:0px auto\">
     <div id=\"menubar\">
       <div id=\"menu_content\">
         <div style=\"float:left;width:100px;\">
-          <a href=\"../composer/\" class=\"menulink\"><img border=\"0\" src=\"images/newicon.png\"><br>New</a>
+          <a href=\"../composer/\" class=\"menulink\"><img border=\"0\" src=\"../../composer/images/newicon.png\"><br>New</a>
         </div>
         <div style=\"float:left;width:100px;\">
-          <a id=\"edit\"  class=\"menulink\"><img border=\"0\"  src=\"images/editicon.png\"><br>Edit</a>
+          <a id=\"edit\"  class=\"menulink\"><img border=\"0\"  src=\"../../composer/images/editicon.png\"><br>Edit</a>
         </div>
         <div style=\"float:left;width:100px\">
-          <a id=\"preview\"  class=\"menulink\"><img border=\"0\" src=\"images/previewicon.png\" alt=\"\" /><br>Preview</a>
+          <a id=\"preview\"  class=\"menulink\"><img border=\"0\" src=\"../../composer/images/previewicon.png\" alt=\"\" /><br>Preview</a>
         </div>
         <div style=\"float:left;width:100px;\">
-            <a  id=\"save\" class=\"menulink\"><img border=\"0\" src=\"images/saveicon.png\"><br>Save</a>
+            <a  id=\"save\" class=\"menulink\"><img border=\"0\" src=\"../../composer/images/saveicon.png\"><br>Save</a>
         </div>
         <div style=\"float:left;width:100px\">
-          <a  id=\"set\" class=\"menulink\"><img border=\"0\" src=\"images/settingsicon.png\"><br>Settings</a>
+          <a  id=\"set\" class=\"menulink\"><img border=\"0\" src=\"../../composer/images/settingsicon.png\"><br>Settings</a>
         </div>
         <div style=\"float:left;width:100px\">
-          <a  id=\"img\" class=\"menulink\"><img border=\"0\" src=\"images/imgicon.png\"><br>Image<br>Manager</a>
+          <a  id=\"img\" class=\"menulink\"><img border=\"0\" src=\"../../composer/images/imgicon.png\"><br>Image<br>Manager</a>
         </div>
       </div>
         <!-- This div provides the editable file list and allows opening or deleting of those files /-->
         <div id=\"edit_list\" class=\"menu\">
 
 
-          <img border=\"0\" src=\"images/close_sm.png\" style=\"position:relative;left:288px;top:-8px\" class=\"close\">
+          <img border=\"0\" src=\"../../composer/images/close_sm.png\" style=\"position:relative;left:288px;top:-8px\" class=\"close\">
           <div id=\"file_list\" style=\"max-height:250px;overflow:auto\"></div>
           <div>
 
@@ -66,7 +67,7 @@ $contents = preg_replace("/<body.*>/i","<body style=\"background-color:#77bbff;m
         </div>
         <!-- This div provides the saving file list and allows saving as an old file by selection or new file by text input /-->
         <div id=\"save_list\" class=\"menu\">
-          <img border=\"0\" src=\"images/close_sm.png\" style=\"position:relative;left:288px;top:-8px\" class=\"close\">
+          <img border=\"0\" src=\"../../composer/images/close_sm.png\" style=\"position:relative;left:288px;top:-8px\" class=\"close\">
           <div id=\"file_list2\" style=\"max-height:250px;overflow:auto\"></div>
           <div>
             <input id=\"filename\" type=\"text\" size=\"30\">
@@ -77,7 +78,7 @@ $contents = preg_replace("/<body.*>/i","<body style=\"background-color:#77bbff;m
         </div>
         <!-- This div provides the image manager and allows uploading and deleting of images -->
         <div id=\"images\" class=\"menu\" >
-          <img border=\"0\" src=\"images/close_sm.png\" style=\"position:relative;left:288px;top:-8px\" class=\"close\">
+          <img border=\"0\" src=\"../../composer/images/close_sm.png\" style=\"position:relative;left:288px;top:-8px\" class=\"close\">
           <div id=\"img_list\" style=\"max-height:250px;overflow:auto\"></div>
           <div>
             <br>
@@ -90,7 +91,7 @@ $contents = preg_replace("/<body.*>/i","<body style=\"background-color:#77bbff;m
         </div>
         <!-- This div provides the settings window for the default font/colours of the newsletter /-->
         <div id=\"settings\" class=\"menu\">
-          <img border=\"0\" src=\"images/close_sm.png\" style=\"position:relative;left:288px;top:-8px\" class=\"close\">
+          <img border=\"0\" src=\"../../composer/images/close_sm.png\" style=\"position:relative;left:288px;top:-8px\" class=\"close\">
 
           Set Font:<select style=\"width:90%\" id=\"font\">
                     <option id=\"arial\" value=\"arial\" select=\"selected\" style=\"font-family:arial\">Arial</option>
@@ -156,24 +157,24 @@ $contents = preg_replace_callback("/(<td)(.*?)(class=\"dashed\")/i","cellnumber"
 if(strpos($contents,'template') == false){
 $contents = preg_replace("/<\/body>/","
       <div style=\"margin:0 auto;text-align:center\">
-        <a  id=\"addrow\"><img border=\"0\" src=\"images/add_sm.png\"></a>
+        <a  id=\"addrow\"><img border=\"0\" src=\"../../composer/images/add_sm.png\"></a>
       </div>
       <div id=\"add_row\" class=\"menu\">
-          <img border=\"0\" class=\"close\" src=\"images/close_sm.png\" style=\"position:relative;left:288px;top:-8px\">
+          <img border=\"0\" class=\"close\" src=\"../../composer/images/close_sm.png\" style=\"position:relative;left:288px;top:-8px\">
         <div style=\"margin:2px\">
-          <img class=\"add5050\" src=\"images/5050.PNG\">
+          <img class=\"add5050\" src=\"../../composer/images/5050.PNG\">
         </div>
         <div style=\"margin:2px\">
-          <img class=\"add2575\" src=\"images/2575.PNG\">
+          <img class=\"add2575\" src=\"../../composer/images/2575.PNG\">
         </div>
         <div style=\"margin:2px\">
-          <img class=\"add7525\" src=\"images/7525.PNG\">
+          <img class=\"add7525\" src=\"../../composer/images/7525.PNG\">
         </div>
         <div style=\"margin:2px\">
-          <img class=\"add1000\" src=\"images/1000.PNG\">
+          <img class=\"add1000\" src=\"../../composer/images/1000.PNG\">
         </div>
         <div style=\"margin:2px\">
-          <img class=\"add3333\" src=\"images/3333.png\"> 
+          <img class=\"add3333\" src=\"../../composer/images/3333.png\"> 
         </div>
         <div>
           <button id=\"addrowbutton\" class=\"unselected\" style=\"float:left\">Add Row</button>
@@ -200,13 +201,13 @@ $contents = preg_replace("/<\/body>/","
     </div>
 
     <div>
-      <form id=\"saveform\" method=\"post\" action=\"save.php\">
+      <form id=\"saveform\" method=\"post\" action=\"../../composer/save.php\">
         <input type=\"hidden\" id=\"file\" name=\"file\" value=\"temp1.html\">
         <input type=\"hidden\" id=\"pagedata\" name=\"data\">
 
       </form>
 
-      <form id=\"editform\" method=\"post\" action=\"test.php\">
+      <form id=\"editform\" method=\"post\" action=\"../../composer/test.php\">
         <input type=\"hidden\" id=\"efile\" name=\"efile\" value=\"temp1.html\">
       </form>
 
@@ -234,13 +235,13 @@ $contents = preg_replace("/<\/body>/","
     </div>
 
     <div>
-      <form id=\"saveform\" method=\"post\" action=\"save.php\">
+      <form id=\"saveform\" method=\"post\" action=\"../../composer/save.php\">
         <input type=\"hidden\" id=\"file\" name=\"file\" value=\"temp1.html\">
         <input type=\"hidden\" id=\"pagedata\" name=\"data\">
 
       </form>
 
-      <form id=\"editform\" method=\"post\" action=\"test.php\">
+      <form id=\"editform\" method=\"post\" action=\"../../composer/test.php\">
         <input type=\"hidden\" id=\"efile\" name=\"efile\" value=\"temp1.html\">
       </form>
 
@@ -251,10 +252,10 @@ $contents = preg_replace("/<\/body>/","
   </body>",$contents);
 }
 
-$filename = 'edit.html';
+$filename = '../'.$path.'composer/edit.html';
 $filep = fopen($filename, 'w');
 $contents = fwrite($filep, $contents);
 fclose($filep);
 //echo $contents;
-header("Location: edit.html");
+header("Location: ".$filename);
 ?>
